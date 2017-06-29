@@ -12,7 +12,6 @@ Robert Johansson <robert@riken.jp>
 License: LGPL
 """
 import numpy as np
-import copy
 
 debug = False
 
@@ -21,11 +20,9 @@ def data_matrix_sort(M, col):
     """
     Sort the columns in a given matrix according to give column.
     """
-
     isort = M[:, col].argsort()
     for i in np.arange(M.shape[1]):
-	M[:,i] = M[:,i][isort]    
-
+        M[:,i] = M[:,i][isort]
     return M
 
 
@@ -35,7 +32,6 @@ def data_matrix_read_file(filename, sep="\t"):
     separated, but the separator can be changed by the optional second
     argument)
     """
-
     N = 0
     M = 0
 
@@ -85,24 +81,24 @@ def file_data_read(datafile, sep=None, header=0):
     sep = ""
     for line in f:
         # skip header lines
-	if i_header <= header:
-	    i_header += 1
-	else:
-	    if line[0] != '#' and line[0] != '%':
-		if sep == "":
-		    if len(line.rstrip().split(",")) > 1:
-			sep = ","
-		    elif len(line.rstrip().split(";")) > 1:
-			sep = ";"
-		    elif len(line.rstrip().split(":")) > 1:
-			sep = ":"
-		    elif len(line.rstrip().split("|")) > 1:
-			sep = "|"
-		    elif len(line.rstrip().split()) > 1:
-			sep = None  # for a mix of white space deliminators
-		    else:
-			raise ValueError("Unrecognized column deliminator")
-		break
+        if i_header <= header:
+            i_header += 1
+        else:
+            if line[0] != '#' and line[0] != '%':
+                if sep == "":
+                    if len(line.rstrip().split(",")) > 1:
+                        sep = ","
+                    elif len(line.rstrip().split(";")) > 1:
+                        sep = ";"
+                    elif len(line.rstrip().split(":")) > 1:
+                        sep = ":"
+                    elif len(line.rstrip().split("|")) > 1:
+                        sep = "|"
+                    elif len(line.rstrip().split()) > 1:
+                        sep = None  # for a mix of white space deliminators
+                    else:
+                        raise ValueError("Unrecognized column deliminator")
+                break
 
     f.close()
     data = np.genfromtxt(datafile, delimiter=sep, skip_header=header)
