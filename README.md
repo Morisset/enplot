@@ -1,4 +1,3 @@
-======
 enplot
 ======
 
@@ -15,10 +14,11 @@ Usage
 
     $ enplot --help
     usage: enplot [-h] [-t TITLE] [-o OUTPUT_FILE] [-f OUTPUT_FORMAT] [-x X]
-                  [-y Y] [-z Z] [-m] [-T] [-X X_LABEL] [-Y Y_LABEL] [-Z Z_LABEL]
-                  [-C C] [--log-x] [--log-y] [-H HEADER]  
-                  [-l LEGENDS] [-S] [-s STYLE] [-q] [-d] [-v VIEW] [-V] [-c]
-                  [datafile [datafile ...]]
+              [-y Y] [-z Z] [-C C] [--log-x] [--log-y] [-H HEADER]
+              [-D DELIMITER] [-m] [-T] [-X X_LABEL] [-Y Y_LABEL] [-Z Z_LABEL]
+              [-l LEGENDS] [-S] [-s STYLE] [-q] [-d] [-v VIEW] [-V] [-c]
+              [--mplstyle MPLSTYLE]
+              [datafile [datafile ...]]
 
     positional arguments:
       datafile              a data file in a CSV-like format
@@ -41,6 +41,8 @@ Usage
       --log-y               plot using log of the values in y-axis
       -H HEADER, --header HEADER
                             Number of header lines to ignore
+      -D DELIMITER, --delimiter DELIMITER
+                             delimiter between columns in the file
       -m, --matrix-form     data in matrix form
       -T, --matrix-transpose
                             transpose data in matrix form
@@ -60,7 +62,7 @@ Usage
       -v VIEW, --view VIEW  view perspective (top or 3d)
       -V, --version         show version information
       -c, --colorbar        Show colorbar
-
+      --mplstyle MPLSTYLE   Matplotlib style sheet to apply to the plot.
 
 Examples
 ========
