@@ -58,14 +58,17 @@ def main():
                               "for use as color code"),
                         type=str, default=-1)
     parser.add_argument("--log-x",
-			help=("plot using log of the values in x-axis"),
-			action='store_true', default=False)
+                        help=("plot using log of the values in x-axis"),
+                        action='store_true', default=False)
     parser.add_argument("--log-y",
-			help=("plot using log of the values in y-axis"),
-			action='store_true', default=False)
+                        help=("plot using log of the values in y-axis"),
+                        action='store_true', default=False)
     parser.add_argument("-H", "--header",
                         help="Number of header lines to ignore",
-                        type=int, default=0)    
+                        type=int, default=0)
+    parser.add_argument("-D", "--delimiter",
+                        help="delimiter between columns in the file",
+                        type=str)
     parser.add_argument("-m", "--matrix-form",
                         help="data in matrix form", action='store_true')
     parser.add_argument("-T", "--matrix-transpose",
@@ -160,9 +163,9 @@ def main():
 
             if args.debug:
                 print("Processing data file " + data_file)
-
-            M, m, n = enplot.base.file_data_read(data_file,
-						 header=args.header)
+                
+            M, m, n = enplot.base.file_data_read(data_file, sep=args.delimiter,
+                                                 header=args.header)
 
             if args.sort:
                 M = enplot.base.data_matrix_sort(M, xcol)

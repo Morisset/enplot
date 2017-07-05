@@ -66,7 +66,7 @@ def data_matrix_read_file(filename, sep="\t"):
     return mat, N, M
 
 
-def file_data_read(datafile, sep=None, header=0):
+def file_data_read(datafile, sep="", header=0):
     """
     Read data from a field-separated values text file (by default tab
     separated, but the separator can be changed by the optional second
@@ -75,32 +75,32 @@ def file_data_read(datafile, sep=None, header=0):
 
     if datafile is None:
         raise ValueError("datafile is unspecified")
-    f = open(datafile, "r")
-
-    i_header=0
-    sep = ""
-    for line in f:
-        # skip header lines
-        if i_header <= header:
-            i_header += 1
-        else:
-            if line[0] != '#' and line[0] != '%':
-                if sep == "":
-                    if len(line.rstrip().split(",")) > 1:
-                        sep = ","
-                    elif len(line.rstrip().split(";")) > 1:
-                        sep = ";"
-                    elif len(line.rstrip().split(":")) > 1:
-                        sep = ":"
-                    elif len(line.rstrip().split("|")) > 1:
-                        sep = "|"
-                    elif len(line.rstrip().split()) > 1:
-                        sep = None  # for a mix of white space deliminators
-                    else:
-                        raise ValueError("Unrecognized column deliminator")
-                break
-
-    f.close()
+    if sep == '\\t':
+        sep = '\t'
+    if sep == "":
+        f = open(datafile, "r")
+        i_header=0
+        for line in f:
+            # skip header lines
+            if i_header <= header:
+                i_header += 1
+            else:
+                if line[0] != '#' and line[0] != '%':
+                    if sep == "":
+                        if len(line.rstrip().split(",")) > 1:
+                            sep = ","
+                        elif len(line.rstrip().split(";")) > 1:
+                            sep = ";"
+                        elif len(line.rstrip().split(":")) > 1:
+                            sep = ":"
+                        elif len(line.rstrip().split("|")) > 1:
+                            sep = "|"
+                        elif len(line.rstrip().split()) > 1:
+                            sep = None  # for a mix of white space deliminators
+                        else:
+                            raise ValueError("Unrecognized column deliminator")
+                    break
+        f.close()
     data = np.genfromtxt(datafile, delimiter=sep, skip_header=header)
     M, N = data.shape
     return data, M, N
